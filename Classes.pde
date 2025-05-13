@@ -53,14 +53,12 @@ class Led {
   }
 }
 
-// Casa = conjunto de 4 LEDs
 class Casa {
   Led[] leds;
   int corIndex;
-  
-  // Lógica do jogo
-  boolean ocupada = false;      // Se há uma peça nesta casa
-  int playerIndex = -1;         // Qual jogador está aqui (0 a 3), -1 se nenhum
+  boolean ocupada = false;
+  int playerIndex = -1;
+  boolean ativa = false;  // <-- NOVA FLAG
 
   Casa(Led[] leds, int corIndex) {
     this.leds = leds;
@@ -68,14 +66,31 @@ class Casa {
   }
 
   void acender(float brilho) {
+    ativa = true;  // <-- Marca como ativa
     for (Led l : leds) {
       l.setColor(cores[corIndex], brilho);
     }
   }
-  
-  void acender2(color cor, float brilho) {
+
+  void acender(color cor, float brilho) {
+    ativa = true;  // <-- Marca como ativa
     for (Led l : leds) {
       l.setColor(cor, brilho);
+    }
+  }
+
+  void apagar() {
+    ativa = false;  // <-- Marca como inativa
+    for (Led l : leds) {
+      l.setColor(color(0), 1.0);
+    }
+  }
+
+  void mostrar() {
+    if (ativa) {
+      for (Led l : leds) {
+        l.show();
+      }
     }
   }
 }
@@ -93,7 +108,7 @@ class Peca {
   }
 
   void acender() {
-    casaAtual.acender2(cores[corIndex], 1);
+    casaAtual.acender(cores[corIndex], 1);
   }
 
   void moverPara(Casa destino) {
@@ -107,5 +122,4 @@ class Peca {
       casaAtual.acender(1); // acende a nova
     }
   }
-
 }
