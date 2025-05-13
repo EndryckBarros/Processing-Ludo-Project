@@ -1,4 +1,3 @@
-
 // ARQUIVO PRINCIPAL (LudoDigital.pde)
 int cols = 32;
 int rows = 32;
@@ -108,20 +107,28 @@ void setup() {
   pecaAnimando = p.pecas[0];
   casasParaAndar = 6;
   iniciarAnimacao(pecaAnimando, caminhoPrincipal, 0);
+  atualizarAnimacoes();
 
 }
 
 void draw() {
   background(0);
   mostrarPainel();
+
+  // Mostrar todas as casas ativas
+  for (Casa[] grupo : todasAsCasas) {
+    for (Casa c : grupo) {
+      c.mostrar();
+    }
+  }
+
   atualizarPiscarCasas();
   atualizarAnimacoes();
 
   if (animando) {
     animarMovimento();
-  }  
+  }
 }
-
 
 void inicializarPlayers() {
   players = new Player[4];
