@@ -75,10 +75,10 @@ void iniciarAnimacao(Peca peca, Casa[] caminho, int inicio) {
 
 void animarMovimento() {
   
-  if (frameCount - inicioAnimacao >= delayEntrePassos) { //<>//
+  if (frameCount - inicioAnimacao >= delayEntrePassos) {
     caminhoAtual[indiceAtual].corIndex = coresOriginaisDosIndices[indiceAtual];
-    caminhoAtual[indiceAtual].acender(1); //<>//
-    println(caminhoPrincipal[indiceAtual].corIndex);
+    caminhoAtual[indiceAtual].acender(1);
+    
 
     indiceAtual++;
 
@@ -94,12 +94,12 @@ void animarMovimento() {
       inicioAnimacao = frameCount;
     } else {
       animando = false;
+      for (int i = 0; i < caminhoPrincipal.length; i++) {
+        caminhoPrincipal[i].acender(1.0);
+      }
     }
   }
 }
-
-
- //<>//
 
 void iniciarAnimacaoMorte(Player p, int indiceFinal) {
   animandoMorte = true;
